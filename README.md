@@ -1,5 +1,181 @@
-📚 LibraryTrack – SQL Relationsdatabasprojekt
-👥 Skapad av
+# 📚 LibraryTrack – SQL Relationsdatabas & .NET Console App
+
+
+## 📌 Projektöversikt
+LibraryTrack är ett databaskurs-projekt som visar hur man **designar, skapar och använder en relationsdatabas i SQL Server** samt hur den kopplas till en **.NET Console App med Database First (Entity Framework Core)**.
+
+
+Databasen är projektets **källa till sanningen**. All design och data skapas först i SQL och dokumenteras i SQL-script innan någon C#-kod skrivs.
+
+
+---
+
+
+## 🎯 Syfte
+Projektet visar att vi kan:
+
+
+- Modellera en relationsdatabas (PK, FK, relationer)
+- Skriva strukturerade SQL-script
+- Använda CRUD, JOINs, Views och Security
+- Jobba Database First med Entity Framework Core
+- Koppla en Console App till databasen
+- Arbeta professionellt i GitHub med issues, commits och struktur
+
+
+---
+
+
+## 🧩 Scenario
+**LibraryTrack – Bibliotekssystem**
+
+
+Systemet hanterar:
+- Medlemmar
+- Böcker
+- Författare
+- Lån
+- Reservationer
+
+
+Scenariot valdes eftersom det är realistiskt och tydligt visar:
+- många-till-många-relationer
+- transaktioner (lån)
+- statusfält och rapporter
+
+
+---
+
+
+## 🗄️ Databasdesign
+
+
+### Huvudtabeller
+- **Members** – bibliotekets medlemmar  
+- **Books** – böcker  
+- **Authors** – författare  
+- **BookAuthors** – kopplingstabell (many-to-many)  
+- **Loans** – boklån  
+- **Reservations** – bokreservationer  
+
+
+### Relationer
+- En Member kan ha många Loans  
+- En Book kan ha många Loans  
+- Books ↔ Authors (many-to-many via BookAuthors)  
+
+
+Alla tabeller har:
+- Primary Key
+- Foreign Keys där det krävs
+- NOT NULL, UNIQUE och CHECK constraints
+- DEFAULT-värden för datumfält
+
+
+📌 **ER-diagram finns i mappen `/erd`**
+
+
+---
+
+
+## 📁 Repo-struktur
+
+
+
+/sql
+01_create_database.sql
+02_create_tables.sql
+03_seed_data.sql
+04_crud_examples.sql
+05_queries_joins.sql
+06_views.sql
+07_security.sql
+08_cleanup.sql (ska ej köras)
+
+/src
+Console App (.NET)
+
+/erd
+ER-diagram (bild/pdf)
+
+/screenshots
+Bilder på queries eller rapporter
+
+README.md
+
+
+
+---
+
+
+## ▶️ Hur man kör SQL-delarna
+
+
+Alla i gruppen jobbar mot **egen lokal SQL Server-databas**.  
+Databasen delas inte – **endast SQL-filerna delas via GitHub**.
+
+
+### Kör filerna i SSMS i denna ordning:
+1. `01_create_database.sql`
+2. `02_create_tables.sql`
+3. `03_seed_data.sql`
+4. `04_crud_examples.sql`
+5. `05_queries_joins.sql`
+6. `06_views.sql`
+7. `07_security.sql`
+
+
+⚠️ **VIKTIGT**  
+`08_cleanup.sql` ska **inte exekveras**.  
+Den ska endast sparas i repot.
+
+
+---
+
+
+## 🔐 Views & Security
+Projektet innehåller:
+- **Public View** – döljer känslig data
+- **Report View** – används av Console App
+- **Role + User** med SELECT-rättigheter endast på views  
+  (ingen direkt access till tabeller)
+
+
+---
+
+
+## 🖥️ Console App – Database First
+
+
+### Teknik
+- .NET Console App
+- SQL Server
+- Entity Framework Core (Database First)
+- LINQ för läsning och rapporter
+
+
+### Installerade NuGet-paket
+```powershell
+Install-Package Microsoft.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Tools
+Scaffold Database First
+Scaffold-DbContext "Server=localhost\SQLEXPRESS;Database=LibraryTrack;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Context LibraryContext -Force
+📊 Funktioner i Console App
+
+Lista entiteter (Members, Books)
+
+Skapa lån och relationer
+
+Uppdatera status
+
+Ta bort data
+
+Rapportmeny med SELECT-frågor via LINQ
+
+👥 Gruppmedlemmar
+
+Projektet är genomfört av:
 
 Mazen Alamin Hassan
 
@@ -7,90 +183,12 @@ Sacad Elmi
 
 Yousuf Abdulrahman
 
-📌 Projektbeskrivning
+Alla i gruppen kan förklara:
 
-LibraryTrack är ett relationsdatabasprojekt som visar hur man:
+Databasdesign & ERD
 
-designar en SQL-databas
+SQL-script, CRUD & JOINs
 
-skapar tabeller och relationer
+Views & Security
 
-använder CRUD-operationer och JOINs
-
-kopplar databasen till en .NET Console App via Entity Framework Core
-
-Projektet är byggt för att visa förståelse för databaser och hur en applikation hämtar data från SQL Server.
-
-🧩 Databasdesign (kort)
-
-Databasen är normaliserad (ca 3NF) och innehåller bland annat:
-
-Members – bibliotekets medlemmar
-
-Books – böcker
-
-Authors – författare
-
-BookAuthors – många-till-många-relation
-
-Loans – utlåning
-
-Reservations – reservationer
-
-Relationer hanteras med Primary Keys, Foreign Keys, constraints och kopplingstabeller.
-
-🗂️ SQL-struktur
-
-Alla SQL-filer delas i GitHub, men varje gruppmedlem skapar databasen lokalt i SSMS genom att köra scripten i rätt ordning.
-
-Exempel:
-
-skapa databas och tabeller
-
-lägga in testdata
-
-CRUD-exempel
-
-JOIN-queries
-
-Views och säkerhet
-
-cleanup-script (ska inte exekveras)
-
-🔗 Console App & Entity Framework Core
-
-Projektet innehåller en Console App i .NET som kopplas till databasen via Entity Framework Core (Database First).
-
-För att underlätta kopplingen mellan:
-
-SQL Server Management Studio (SSMS)
-
-databasen
-
-Console Appen
-
-har vi installerat följande Entity Framework-paket:
-
-Microsoft.EntityFrameworkCore
-
-Microsoft.EntityFrameworkCore.SqlServer
-
-Microsoft.EntityFrameworkCore.Tools
-
-Dessa paket gör det möjligt att:
-
-scaffolda databasen till C#-klasser
-
-använda DbContext
-
-hämta data från databasen direkt i Console Appen
-
-🧠 Vad projektet visar
-
-Förståelse för relationsdatabaser
-
-Korrekt användning av PK, FK och constraints
-
-SQL-queries (SELECT, INSERT, UPDATE, DELETE, JOIN)
-
-Koppling mellan SQL Server och C# via EF Core
+Console App & Database First
