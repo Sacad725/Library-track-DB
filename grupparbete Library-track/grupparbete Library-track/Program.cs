@@ -1,5 +1,5 @@
 ﻿
-using grupparbete_Library_track.Models; // Kopplar till dina tabeller
+using grupparbete_Library_track.Models; // Kopplar till  tabellerna
 using Microsoft.EntityFrameworkCore; // Behövs för att hämta data från flera tabeller samtidigt
 
 namespace grupparbete_Library_track
@@ -9,7 +9,7 @@ namespace grupparbete_Library_track
         static void Main(string[] args)
         {
 
-            // Startar kontakten med databasen
+            // Startar  kontakten med databasen
             using var db = new LibraryContext();
 
             bool kör = true;
@@ -17,7 +17,7 @@ namespace grupparbete_Library_track
             while (kör)
             {
                 Console.Clear();
-                Console.WriteLine("--- BIBLIOTEK ---");
+                Console.WriteLine("--- BIBLIOTEK-SYSTEM ---");
                 Console.WriteLine("1. Visa medlemmar");
                 Console.WriteLine("2. Visa böcker");
                 Console.WriteLine("3. Registrera nytt lån");
