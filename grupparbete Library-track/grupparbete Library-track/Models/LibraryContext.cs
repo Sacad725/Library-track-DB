@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace grupparbete_Library_track.Models;
 
-// detta är kopplingen till databasen och och visuel studio 
+// detta är huvud kopplingen till databasen och och visuel studio 
 public partial class LibraryContext : DbContext
 {
     public LibraryContext()

@@ -22,8 +22,7 @@ namespace grupparbete_Library_track
                 Console.WriteLine("2. Visa böcker");
                 Console.WriteLine("3. Registrera nytt lån");
                 Console.WriteLine("4. Ändra status på lån");
-                Console.WriteLine("5. Ta bort reservation");
-                Console.WriteLine("6. Rapport: Vem har lånat vad");
+                Console.WriteLine("5. Rapport: Vem har lånat vad");
                 Console.WriteLine("0. Avsluta");
                 Console.Write("\nVälj: ");
 
@@ -84,12 +83,6 @@ namespace grupparbete_Library_track
                         }
                         break;
 
-                    case "6":
-                        // Hämtar info från flera tabeller samtidigt (Join)
-                        var info = db.Loans.Include(l => l.Member).Include(l => l.Book).ToList();
-                        Console.WriteLine("\nLISTA PÅ LÅN:");
-                        foreach (var i in info) Console.WriteLine($"{i.Member.FirstName} lånar {i.Book.Title}");
-                        break;
 
                     case "0":
                         kör = false;
